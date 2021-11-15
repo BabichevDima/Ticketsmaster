@@ -1,0 +1,237 @@
+.about {
+  &__info {
+    font-size: 70px;
+    color: rgb(255, 255, 255);
+    margin: auto;
+    margin-bottom: 55px;
+    width: 22ch;
+    animation: typing 2s steps(22), blink 0.5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-family: monospace;
+  }
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+
+  &__email {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+
+    background: #000000;
+    border-radius: 6px;
+    height: 58px;
+    width: 58px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    transition: width 1.3s;
+  }
+  &__email.visible {
+    width: 300px;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 0 1px #154bff, 0 0 5px #154bff, 0 0 25px #154bff,
+        0 0 50px #154bff;
+    }
+  }
+
+  &__logo {
+    margin: 0 9px;
+    color: #fff;
+    font-size: 40px;
+    transition: all 1s;
+  }
+  &__text {
+    flex-shrink: 0;
+    margin-left: 15px;
+    color: #fff;
+    transition: all 0.3s;
+    &:hover {
+      color: rgb(255, 145, 0);
+      cursor: pointer;
+    }
+  }
+}
+
+.form-box {
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.9);
+  border-radius: 10px;
+  transform: translateX(-500%);
+  opacity: 0;
+  transition: all 1s;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+
+.form-box.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.form-box h2 {
+  margin-bottom: 30px;
+  color: #fff;
+  text-align: center;
+}
+
+.form-box .user-box {
+  position: relative;
+}
+
+.form-box .user-box {
+  position: relative;
+}
+.form-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.form-box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.form-box .user-box input:focus ~ label,
+.form-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #154bff;
+  font-size: 12px;
+}
+
+.form-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #154bff;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  margin-top: 40px;
+  letter-spacing: 4px;
+}
+
+.form-box a:hover {
+  background: #154bff;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #154bff, 0 0 25px #154bff, 0 0 50px #154bff,
+    0 0 100px #154bff;
+}
+
+.form-box a span {
+  position: absolute;
+  display: block;
+}
+
+.form-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #154bff);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+.form-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #154bff);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: 0.25s;
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+.form-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #154bff);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+.form-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #154bff);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: 0.75s;
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
