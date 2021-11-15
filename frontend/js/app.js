@@ -7,15 +7,14 @@ import About from './views/pages/about.js';
 import Error404 from './views/pages/error404.js';
 
 import AddAndList from './views/pages/tasks/add-list.js';
-import Info from './views/pages/tasks/info.js';
-import Edit from './views/pages/tasks/edit.js';
+import ConcertInfo from './views/pages/tasks/concert-info.js';
+import Confirm from './views/pages/tasks/confirm.js';
 
 const Routes = {
     '/': About,
     '/concerts': AddAndList,
-    '/concert/:id': Info,
-    // '/task/:id/edit': Edit,
-    '/concert/:id/:id/confirm': Edit,
+    '/concert/:id': ConcertInfo,
+    '/concert/:id/:id/confirm': Confirm,
 };
 
 function router() {

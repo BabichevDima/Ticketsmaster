@@ -4,6 +4,7 @@
     color: rgb(255, 255, 255);
     margin: auto;
     margin-bottom: 55px;
+    margin-top: 40px;
     width: 22ch;
     animation: typing 2s steps(22), blink 0.5s step-end infinite alternate;
     white-space: nowrap;
@@ -234,4 +235,41 @@
   100% {
     bottom: 100%;
   }
+}
+
+.about__slider{
+  margin-bottom: 20px;
+}
+.slide {
+  display: none;
+}
+.slide__active {
+  display: block;
+}
+.top__button{
+  margin-bottom: 20px;
+}
+
+.top__buttons {
+  display: flex;
+  transition: all 0.8s;
+}
+.top__btn {
+  width: 60px;
+  height: 60px;
+  background: #ffffff38;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  transition: all 0.8s;
+}
+.top__btn:hover {
+  background: #ffffff77;
+  cursor: pointer;
+}
+
+.top__title{
+  margin-bottom: 20px;
 }

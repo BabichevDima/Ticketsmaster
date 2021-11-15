@@ -11,16 +11,32 @@ class About extends Component {
 
   getData() {
     return new Promise((resolve) =>
-      this.model.getTasksList().then((tasks) => resolve(tasks))
+      this.model.getTasksList().then((concerts) => resolve(concerts))
     );
   }
 
-  render(tasks) {
+  render(concerts) {
     return new Promise((resolve) => {
       resolve(`
                 <div class="about container"> 
                     <p class="about__info">Welcome ticketmaster app!</p>   
                     
+                    <div class='about__slider'>
+                      ${concerts
+                        .map((concert, index) =>
+                          this.getConcertHTML(concert, index)
+                        )
+                        .join('\n ')}
+                    </div>
+
+                    <div class="top__buttons _anim-items">
+                      <div class="top__btn top__btn_prev">
+                        &#10094
+                      </div>
+                      <div class="top__btn top__btn_next">
+                        &#10095
+                      </div>
+                    </div>
                 
                     <div class="about__email">
                         <p class="about__logo">	&#9993</p>
@@ -73,6 +89,11 @@ class About extends Component {
     const userEmail = document.querySelector('.email');
     const userPhone = document.querySelector('.phone');
 
+    const slides = document.querySelectorAll('.slide');
+    const prev = document.querySelector('.top__btn_prev');
+    const next = document.querySelector('.top__btn_next');
+    let index = 0;
+
     phone.addEventListener('mouseover', () => phone.classList.add('visible'));
 
     phone.addEventListener('click', (event) => {
@@ -110,12 +131,108 @@ class About extends Component {
       this.model.sendMail(mailOptions);
       phone.classList.remove('visible');
     });
+
+    userPhone.addEventListener('blur', () => {
+      this.validForm(userPhone, buttonMail);
+    });
+
+    userEmail.addEventListener('blur', () => {
+      this.validForm(userEmail, buttonMail);
+    });
+
+    userName.addEventListener('blur', () => {
+      this.validForm(userName, buttonMail);
+    });
+
+    next.addEventListener('click', () => {
+      this.nextSlide(slides, index);
+    });
+    prev.addEventListener('click', () => {
+      this.prevSlide(slides, index);
+    });
+  }
+
+  validForm(block, buttonMail) {
+    switch (block.className) {
+      case 'phone':
+        const regExpPhone =
+          /^(\+?375-?|8-?0)(44|29|33|17|25)-?[1-9](\d){2}(-?(\d){2}){2}$/;
+        if (regExpPhone.test(+block.value.trim())) {
+          buttonMail.disabled = false;
+          buttonMail.classList.remove('done');
+        } else {
+          buttonMail.disabled = true;
+          buttonMail.classList.add('done');
+          block.value = '';
+        }
+        break;
+
+      case 'email':
+        const regExpEmail = /@[a-z\d]{1,10}\.com$/;
+        if (regExpEmail.test(block.value.trim())) {
+          buttonMail.disabled = false;
+          buttonMail.classList.remove('done');
+        } else {
+          buttonMail.disabled = true;
+          buttonMail.classList.add('done');
+          block.value = '';
+        }
+        break;
+
+      case 'name':
+        if (block.value.trim()) {
+          buttonMail.disabled = false;
+          buttonMail.classList.remove('done');
+        } else {
+          buttonMail.disabled = true;
+          buttonMail.classList.add('done');
+          block.value = '';
+        }
+        break;
+    }
   }
 
   clearForm(userName, userEmail, userPhone) {
     userPhone.value = '';
     userName.value = '';
     userEmail.value = '';
+  }
+
+  getConcertHTML(concert, index) {
+    return `
+          <div class="slide ${!index ? 'slide__active' : ''}">
+              <div class="title top__title">${concert.title}</div>
+              <a class="button top__button" href="#/concert/${concert.id}">К концерту</a>
+          </div>
+    `;
+  }
+
+  nextSlide(slides, index) {
+    if (index == slides.length - 1) {
+      index = 0;
+      this.activeSlide(index, slides);
+    } else {
+      index++;
+      this.activeSlide(index, slides);
+    }
+  }
+
+  prevSlide(slides, index) {
+    if (index == 0) {
+      index = slides.length - 1;
+      this.activeSlide(index, slides);
+    } else {
+      index--;
+      this.activeSlide(index, slides);
+    }
+  }
+
+  activeSlide(index, slides) {
+    console.log(index);
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove('slide__active');
+    }
+    slides[index].classList.add('slide__active');
   }
 }
 

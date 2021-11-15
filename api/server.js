@@ -35,51 +35,51 @@ app.post('/api/task', (req, res) => {
   res.send(task);
 });
 
-app.get('/api/task/:id', (req, res) => {
-  const tasksData = getTasksFromDB(),
-    task = tasksData.find((task) => task.id === req.params.id);
+app.get('/api/concert/:id', (req, res) => {
+  const concertsData = getTasksFromDB(),
+    concert = concertsData.find((concert) => concert.id === req.params.id);
 
-  task ? res.send(task) : res.send({});
+  concert ? res.send(concert) : res.send({});
 });
 
-app.put('/api/task/:id', (req, res) => {
-  const tasksData = getTasksFromDB(),
-    task = tasksData.find((task) => task.id === req.params.id),
+app.put('/api/concert/:id', (req, res) => {
+  const concertsData = getTasksFromDB(),
+    concert = concertsData.find((concert) => concert.id === req.params.id),
     updatedTask = req.body;
 
-  task.title = updatedTask.title;
-  task.description = updatedTask.description || 'No Description';
+  concert.title = updatedTask.title;
+  concert.description = updatedTask.description || 'No Description';
 
-  setTasksToDB(tasksData);
-
-  res.sendStatus(204);
-});
-
-app.put('/api/task/:id/done', (req, res) => {
-  const tasksData = getTasksFromDB(),
-    task = tasksData.find((task) => task.id === req.params.id);
-  task.status = 'Done';
-
-  setTasksToDB(tasksData);
+  setTasksToDB(concertsData);
 
   res.sendStatus(204);
 });
 
-app.put('/api/task/:id/confirm', (req, res) => {
+app.put('/api/concert/:id/done', (req, res) => {
+  const concertsData = getTasksFromDB(),
+    concert = concertsData.find((concert) => concert.id === req.params.id);
+  concert.status = 'Done';
+
+  setTasksToDB(concertsData);
+
+  res.sendStatus(204);
+});
+
+app.put('/api/concert/:id/confirm', (req, res) => {
   const concerts = getTasksFromDB(),
     concert = concerts.find((concert) => concert.id === req.body.concert.id);
-  updatedConcert =
+  location =
     concert.danceFloor.id === req.params.id
       ? concert.danceFloor
       : concert.tables.find((table) => table.id === req.body.placeId);
 
-  if (updatedConcert.type === 'dance') {
-    updatedConcert.count = `${updatedConcert.count - req.body.count}`;
-    if (!+updatedConcert.count) {
-      updatedConcert.status = 'Done';
+  if (location.type === 'dance') {
+    location.count = `${location.count - req.body.count}`;
+    if (!+location.count) {
+      location.status = 'Done';
     }
   } else {
-    updatedConcert.status = 'Done';
+    location.status = 'Done';
   }
 
   setTasksToDB(concerts);
@@ -87,7 +87,7 @@ app.put('/api/task/:id/confirm', (req, res) => {
   res.sendStatus(204);
 });
 
-app.delete('/api/task/:id', (req, res) => {
+app.delete('/api/concert/:id', (req, res) => {
   const tasksData = getTasksFromDB();
   tasks =
     req.params.id === 'all'
@@ -113,11 +113,8 @@ function setTasksToDB(concerts) {
 }
 
 function sendMail(body) {
-  //Отправка письма на почту:
   const dotenv = require('dotenv').config();
   const nodemailer = require('nodemailer');
-
-  //Залогиниваемся на почту:
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -125,17 +122,20 @@ function sendMail(body) {
       pass: process.env.PASSWORD,
     },
   });
-
-  //Конфигурируем объект с настройками самого сообщения:
   const mailOptions = {
     from: 'dzmitry.babichev@gmail.com',
     to: 'dzmitry.babichev@gmail.com',
     subject: body.subject,
-    text: `Имя: ${body.name} Телефон: ${body.phone} Email: ${body.email}
-    ${body.concert ? `Концерт: ${body.concert.title}` : ``}`,
+    text: `
+    Имя: ${body.name ? body.name : '---'}
+    Телефон: ${body.phone ? body.phone : '---'}
+    Email: ${body.email ? body.email : '---'}
+    ${body.concert ? `Концерт: ${body.concert.title}` : ``} 
+    ${body.ticket ? `Номер Вашего билета: №${body.ticket}` : ``}
+    ${body.count ? `Количество билетов: ${body.count}` : ``}
+    `,
   };
 
-  //создаем функцию, которая будет отправлять письмо:
   transporter.sendMail(mailOptions);
 }
 

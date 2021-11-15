@@ -11,11 +11,11 @@ class AddAndList extends Component {
 
   getData() {
     return new Promise((resolve) =>
-      this.model.getTasksList().then((tasks) => resolve(tasks))
+      this.model.getTasksList().then((concerts) => resolve(concerts))
     );
   }
 
-  render(tasks) {
+  render(concerts) {
     return new Promise((resolve) => {
       resolve(`
         <div class='container'>
@@ -23,7 +23,7 @@ class AddAndList extends Component {
       
 			  	<div class="concerts">
 			  		<div class="concerts__list">
-			  			${tasks.map((task) => this.getTaskHTML(task)).join('\n ')}
+			  			${concerts.map((concert) => this.getTaskHTML(concert)).join('\n ')}
 			  		</div>
 			  	</div>
         </div>
@@ -33,8 +33,6 @@ class AddAndList extends Component {
 
   afterRender() {
     this.setActions();
-
-    // this.countTasksAmount();
   }
 
   setActions() {
@@ -52,24 +50,22 @@ class AddAndList extends Component {
     });
   }
 
-  getTaskHTML(task) {
-    const statusDone = task.status === 'Done';
-
+  getTaskHTML(concert) {
     return `
       <div class="concert">
 
-        <img class="concert__avatar" src="${task.image}" alt="photo" data-id='${task.id}'/>
+        <img class="concert__avatar" src="${concert.image}" alt="photo" data-id='${concert.id}'/>
 
         <div class="concert__description">
           <div class="concert__info">
-            <div>${task.title}</div>
+            <div>${concert.title}</div>
             <div class="concert__title">
             <span>&#128197</span>
-            ${task.data}</div>
+            ${concert.data}</div>
           </div>
           
           <div class="concert__text">
-          ${task.description}
+          ${concert.description}
           </div>
         </div>
 
@@ -77,59 +73,9 @@ class AddAndList extends Component {
     `;
   }
 
-  // clearAddTask(addTaskTitle, addTaskDescription, addTaskBtn) {
-  //   addTaskTitle.value = '';
-  //   addTaskDescription.value = '';
-  //   addTaskBtn.disabled = true;
-  // }
-
-  // countTasksAmount() {
-  //   const tasksCounter = document.getElementsByClassName('tasks__counter')[0],
-  //     totalAmount = document.getElementsByClassName('task').length,
-  //     doneAmount = document.getElementsByClassName('task_done').length,
-  //     toBeVerbForm = doneAmount === 1 ? 'is' : 'are',
-  //     taskWordForm = doneAmount === 1 ? 'task' : 'tasks';
-
-  //   tasksCounter.innerHTML = !totalAmount
-  //     ? 'Tasks list is empty'
-  //     : `There ${toBeVerbForm} <span class="tasks__counter-done">${doneAmount}</span> ${taskWordForm} of <span class="tasks__counter-total">${totalAmount}</span> ${toBeVerbForm} done`;
-  // }
-
-  // clearTasksList(tasksList, clearTasksListBtn) {
-  //   this.model.removeTask('all').then(() => {
-  //     if (confirm('Are you sure?')) {
-  //       clearTasksListBtn.disabled = true;
-  //       tasksList.innerHTML = '';
-
-  //       this.countTasksAmount();
-  //     }
-  //   });
-  // }
-
   redirectToTaskInfo(id) {
     location.hash = `#/concert/${id}`;
   }
-
-  // changeTaskStatus(taskContainer, editTaskBtn, doneTaskBtn) {
-  //   this.model.editStatusTask(taskContainer.dataset.id).then(() => {
-  //     taskContainer.classList.add('task_done');
-  //     editTaskBtn.remove();
-  //     doneTaskBtn.remove();
-
-  //     this.countTasksAmount();
-  //   });
-  // }
-
-  // removeTask(tasksList, taskContainer, clearTasksListBtn) {
-  //   this.model.removeTask(taskContainer.dataset.id).then(() => {
-  //     if (confirm('Are you sure?')) {
-  //       taskContainer.remove();
-  //       !tasksList.children.length && (clearTasksListBtn.disabled = true);
-
-  //       this.countTasksAmount();
-  //     }
-  //   });
-  // }
 }
 
 export default AddAndList;

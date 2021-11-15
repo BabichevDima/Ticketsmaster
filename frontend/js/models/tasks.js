@@ -15,7 +15,7 @@ class Tasks {
     return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open('POST', 'http://localhost:3000/api/task');
+      xhr.open('POST', 'http://localhost:3000/api/concert');
       xhr.setRequestHeader('Content-Type', 'application/json');
 
       xhr.onload = () => resolve(JSON.parse(xhr.response));
@@ -28,7 +28,7 @@ class Tasks {
     return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open('GET', `http://localhost:3000/api/task/${id}`);
+      xhr.open('GET', `http://localhost:3000/api/concert/${id}`);
 
       xhr.onload = () => resolve(JSON.parse(xhr.response));
 
@@ -40,7 +40,7 @@ class Tasks {
     return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open('DELETE', `http://localhost:3000/api/task/${id}`);
+      xhr.open('DELETE', `http://localhost:3000/api/concert/${id}`);
       xhr.setRequestHeader('Content-Type', 'application/json');
 
       xhr.onload = () => resolve();
@@ -53,7 +53,7 @@ class Tasks {
     return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open('PUT', `http://localhost:3000/api/task/${id}/done`);
+      xhr.open('PUT', `http://localhost:3000/api/concert/${id}/done`);
 
       xhr.onload = () => resolve();
 
@@ -65,7 +65,7 @@ class Tasks {
     return new Promise((resolve)=>{
       const xhr = new XMLHttpRequest();
 
-      xhr.open('PUT', `http://localhost:3000/api/task/${concertConfirm.placeId}/confirm`);
+      xhr.open('PUT', `http://localhost:3000/api/concert/${concertConfirm.placeId}/confirm`);
       xhr.setRequestHeader('Content-Type', 'application/json');
 
       xhr.onload = () => resolve();
@@ -78,7 +78,7 @@ class Tasks {
     return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open('PUT', `http://localhost:3000/api/task/${updatedTask.id}`);
+      xhr.open('PUT', `http://localhost:3000/api/concert/${updatedTask.id}`);
       xhr.setRequestHeader('Content-Type', 'application/json');
 
       xhr.onload = () => resolve();
@@ -94,7 +94,8 @@ class Tasks {
       xhr.open('POST', 'http://localhost:3000/api/sendMail');
       xhr.setRequestHeader('Content-Type', 'application/json');
 
-      xhr.onload = () => resolve(JSON.parse(xhr.response));
+      // xhr.onload = () => resolve(JSON.parse(xhr.response));
+      xhr.onload = () => resolve();
 
       xhr.send(JSON.stringify(body));
     });
