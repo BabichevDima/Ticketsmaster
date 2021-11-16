@@ -15,11 +15,9 @@
 
   &__scheme {
     width: 100%;
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-
     padding: 20px;
     border-radius: 20px;
     background: rgba(0, 0, 0, 0.3);
@@ -34,8 +32,9 @@
 
     &_scene {
       width: 200px;
-      height: 100px;
+      height: 60px;
       border: 1px solid red;
+      border-radius: 5px 5px 50% 50%;
       background: rgba(255, 36, 36, 0.473);
       display: flex;
       flex-direction: column;
@@ -45,8 +44,7 @@
     }
     &_dance {
       width: 300px;
-      height: 150px;
-      border: 1px solid red;
+      height: 100px;
       background: green;
       display: flex;
       justify-content: center;
@@ -59,37 +57,33 @@
         transform: scale(1.05);
         background: rgb(0, 214, 0);
         border-radius: 15px;
-        border-color: rgb(0, 9, 128);
       }
     }
     &_tables {
-      width: auto;
-      height: auto;
-      border: 1px solid red;
       background: rgba(0, 0, 0, 0.5);
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-auto-rows: auto;
-      justify-content: center;
-      align-items: center;
+      border-radius: 15px;
+      padding: 10px;
+      width: calc((100px + (10px * 2)) * 4);
+      display: flex;
+      flex-wrap: wrap;
+      margin: 10px;
     }
     &_table {
-      width: 50px;
-      height: 30px;
-      border: 1px solid red;
       background: green;
-      margin: 10px;
       transition: all 0.3s;
+      width: 100px;
+      height: 40px;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      margin: auto;
+      margin: 10px auto;
       &:hover {
         cursor: pointer;
         -webkit-transform: scale(1.2);
         transform: scale(1.2);
         background: rgb(0, 214, 0);
         border-radius: 5px;
-        border-color: rgb(0, 9, 128);
       }
     }
   }
@@ -133,6 +127,7 @@
 
 .pending {
   background: rgb(70, 88, 248);
+  border: 1px solid red;
   &:hover {
     background: rgba(10, 34, 255);
   }
@@ -163,6 +158,6 @@
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
     box-shadow: 0 0 1px #154bff, 0 0 3px #154bff, 0 0 5px #154bff,
-    0 0 10px #154bff;
+      0 0 10px #154bff;
   }
 }

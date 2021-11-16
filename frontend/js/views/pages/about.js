@@ -6,6 +6,7 @@ class About extends Component {
   constructor() {
     super();
 
+    this.index = 0;
     this.model = new Tasks();
   }
 
@@ -29,11 +30,11 @@ class About extends Component {
                         .join('\n ')}
                     </div>
 
-                    <div class="top__buttons _anim-items">
-                      <div class="top__btn top__btn_prev">
+                    <div class="about__buttons">
+                      <div class="about__buttons_prev">
                         &#10094
                       </div>
-                      <div class="top__btn top__btn_next">
+                      <div class="about__buttons_next">
                         &#10095
                       </div>
                     </div>
@@ -90,9 +91,8 @@ class About extends Component {
     const userPhone = document.querySelector('.phone');
 
     const slides = document.querySelectorAll('.slide');
-    const prev = document.querySelector('.top__btn_prev');
-    const next = document.querySelector('.top__btn_next');
-    let index = 0;
+    const prev = document.querySelector('.about__buttons_prev');
+    const next = document.querySelector('.about__buttons_next');
 
     phone.addEventListener('mouseover', () => phone.classList.add('visible'));
 
@@ -145,10 +145,10 @@ class About extends Component {
     });
 
     next.addEventListener('click', () => {
-      this.nextSlide(slides, index);
+      this.nextSlide(slides);
     });
     prev.addEventListener('click', () => {
-      this.prevSlide(slides, index);
+      this.prevSlide(slides);
     });
   }
 
@@ -201,38 +201,38 @@ class About extends Component {
   getConcertHTML(concert, index) {
     return `
           <div class="slide ${!index ? 'slide__active' : ''}">
-              <div class="title top__title">${concert.title}</div>
-              <a class="button top__button" href="#/concert/${concert.id}">К концерту</a>
+              <div class="slide__title">${concert.title}</div>
+              <img class="slide__avatar" src="${concert.image}" alt="photo"/>
+              <a class="button slide__button" href="#/concert/${concert.id}">К концерту</a>
           </div>
     `;
   }
 
-  nextSlide(slides, index) {
-    if (index == slides.length - 1) {
-      index = 0;
-      this.activeSlide(index, slides);
+  nextSlide(slides) {
+    if (this.index == slides.length - 1) {
+      this.index = 0;
+      this.activeSlide(slides);
     } else {
-      index++;
-      this.activeSlide(index, slides);
+      this.index++;
+      this.activeSlide(slides);
     }
   }
 
-  prevSlide(slides, index) {
-    if (index == 0) {
-      index = slides.length - 1;
-      this.activeSlide(index, slides);
+  prevSlide(slides) {
+    if (this.index == 0) {
+      this.index = slides.length - 1;
+      this.activeSlide(slides);
     } else {
-      index--;
-      this.activeSlide(index, slides);
+      this.index--;
+      this.activeSlide(slides);
     }
   }
 
-  activeSlide(index, slides) {
-    console.log(index);
+  activeSlide(slides) {
     for (let i = 0; i < slides.length; i++) {
       slides[i].classList.remove('slide__active');
     }
-    slides[index].classList.add('slide__active');
+    slides[this.index].classList.add('slide__active');
   }
 }
 

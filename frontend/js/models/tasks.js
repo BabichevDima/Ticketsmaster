@@ -36,31 +36,6 @@ class Tasks {
     });
   }
 
-  removeTask(id) {
-    return new Promise((resolve) => {
-      const xhr = new XMLHttpRequest();
-
-      xhr.open('DELETE', `http://localhost:3000/api/concert/${id}`);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-
-      xhr.onload = () => resolve();
-
-      xhr.send();
-    });
-  }
-
-  editStatusTask(id) {
-    return new Promise((resolve) => {
-      const xhr = new XMLHttpRequest();
-
-      xhr.open('PUT', `http://localhost:3000/api/concert/${id}/done`);
-
-      xhr.onload = () => resolve();
-
-      xhr.send();
-    });
-  }
-
   choosePlace(concertConfirm){
     return new Promise((resolve)=>{
       const xhr = new XMLHttpRequest();
