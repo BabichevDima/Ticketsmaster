@@ -9,12 +9,13 @@
   background: rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0);
-  transition: all 0.3s;
+  transition: all 0.8s;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.8);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 15px 15px rgb(255, 0, 0);
   }
 
   &__avatar {
@@ -33,10 +34,30 @@
     width: 100%;
   }
   &__info {
+    color: red;
     display: flex;
     flex: 1;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .concert {
+    flex-direction: column-reverse;
+    transition: all 0.8s;
+    &__text {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .concert {
+    &__avatar {
+      height: 230px;
+      width: 230px;
+    }
   }
 }

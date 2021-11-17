@@ -49,7 +49,7 @@ class About extends Component {
                       оставьте свои контакты. Мы с вами свяжемся!</h2>
                     <form>
                       <div class="user-box">
-                        <input type="text" class="name" required="" />
+                        <input type="text" class="name" required="" />	
                         <label>Name</label>
                       </div>
 
@@ -59,7 +59,7 @@ class About extends Component {
                       </div>
 
                       <div class="user-box">
-                        <input type="email" class="email" required="" />
+                        <input type="text" class="email" required="" />
                         <label>Email</label>
                       </div>
 
@@ -112,7 +112,6 @@ class About extends Component {
     });
 
     phoneForm.addEventListener('mouseleave', () => {
-      this.clearForm(userName, userEmail, userPhone);
       phoneForm.classList.remove('visible');
     });
 
@@ -121,6 +120,10 @@ class About extends Component {
     });
 
     buttonMail.addEventListener('click', () => {
+      if (!userName.value || !userPhone.value || !userEmail.value) {
+        alert('Заполните всю форму.');
+        return;
+      }
       const mailOptions = {
         email: userEmail.value,
         subject: 'Нужна консультация',
@@ -132,16 +135,39 @@ class About extends Component {
       phone.classList.remove('visible');
     });
 
+    userName.addEventListener('blur', () => {
+      if (!userName.value) {
+        userName.style.borderColor = 'red';
+      }
+    });
+
+    userName.addEventListener('focus', function () {
+      userName.style.borderColor = '#fff';
+    });
+
+
     userPhone.addEventListener('blur', () => {
-      this.validForm(userPhone, buttonMail);
+      const regExp =
+          /^(\+?375-?|8-?0)(44|29|33|17|25)-?[1-9](\d){2}(-?(\d){2}){2}$/;
+      if (!regExp.test(+userPhone.value.trim())) {
+        userPhone.style.borderColor = 'red';
+        userPhone.value = '';
+      }
+    });
+
+    userPhone.addEventListener('focus', function () {
+      userPhone.style.borderColor = '#fff';
     });
 
     userEmail.addEventListener('blur', () => {
-      this.validForm(userEmail, buttonMail);
+      if (!userEmail.value.includes('@')) {
+        userEmail.style.borderColor = 'red';
+        userEmail.value = '';
+      }
     });
 
-    userName.addEventListener('blur', () => {
-      this.validForm(userName, buttonMail);
+    userEmail.addEventListener('focus', function () {
+      userEmail.style.borderColor = '#fff';
     });
 
     next.addEventListener('click', () => {
@@ -152,58 +178,14 @@ class About extends Component {
     });
   }
 
-  validForm(block, buttonMail) {
-    switch (block.className) {
-      case 'phone':
-        const regExpPhone =
-          /^(\+?375-?|8-?0)(44|29|33|17|25)-?[1-9](\d){2}(-?(\d){2}){2}$/;
-        if (regExpPhone.test(+block.value.trim())) {
-          buttonMail.disabled = false;
-          buttonMail.classList.remove('done');
-        } else {
-          buttonMail.disabled = true;
-          buttonMail.classList.add('done');
-          block.value = '';
-        }
-        break;
-
-      case 'email':
-        const regExpEmail = /@[a-z\d]{1,10}\.com$/;
-        if (regExpEmail.test(block.value.trim())) {
-          buttonMail.disabled = false;
-          buttonMail.classList.remove('done');
-        } else {
-          buttonMail.disabled = true;
-          buttonMail.classList.add('done');
-          block.value = '';
-        }
-        break;
-
-      case 'name':
-        if (block.value.trim()) {
-          buttonMail.disabled = false;
-          buttonMail.classList.remove('done');
-        } else {
-          buttonMail.disabled = true;
-          buttonMail.classList.add('done');
-          block.value = '';
-        }
-        break;
-    }
-  }
-
-  clearForm(userName, userEmail, userPhone) {
-    userPhone.value = '';
-    userName.value = '';
-    userEmail.value = '';
-  }
-
   getConcertHTML(concert, index) {
     return `
           <div class="slide ${!index ? 'slide__active' : ''}">
               <div class="slide__title">${concert.title}</div>
               <img class="slide__avatar" src="${concert.image}" alt="photo"/>
-              <a class="button slide__button" href="#/concert/${concert.id}">К концерту</a>
+              <a class="button slide__button" href="#/concert/${
+                concert.id
+              }">К концерту</a>
           </div>
     `;
   }

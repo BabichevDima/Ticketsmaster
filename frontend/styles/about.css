@@ -1,6 +1,6 @@
 .about__info {
   font-size: 70px;
-  color: #ffffff;
+  color: #154bff;
   margin: auto;
   margin-bottom: 55px;
   margin-top: 40px;
@@ -9,7 +9,7 @@
   white-space: nowrap;
   overflow: hidden;
   border-right: 3px solid;
-  font-family: monospace;
+  transition: all 1s;
 }
 @keyframes typing {
   from {
@@ -266,4 +266,25 @@
 }
 .slide__button {
   display: inline-block;
+}
+@media (max-width: 950px) {
+  .about__info {
+    font-size: 50px;
+  }
+}
+@media (max-width: 700px) {
+  .about__info {
+    font-size: 30px;
+  }
+}
+@media (max-width: 460px) {
+  .about__info {
+    font-size: 25px;
+  }
+  .content-container {
+    padding: 20px;
+  }
+  .form-box {
+    width: 300px;
+  }
 }

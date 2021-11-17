@@ -1,0 +1,109 @@
+.confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.confirm__edit {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0);
+  transition: all 0.3s;
+  height: min-content;
+  width: 70%;
+}
+.confirm__edit:hover {
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.confirm__edit_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.confirm__edit_title {
+  font-size: 50px;
+  margin: auto;
+  margin-bottom: 15px;
+}
+.confirm__edit_description,
+.confirm__edit_type,
+.confirm__edit_price {
+  margin-bottom: 10px;
+}
+.confirm__edit_buttons {
+  margin: auto;
+  text-align: center;
+  box-sizing: border-box;
+  width: auto;
+}
+.confirm__edit_back,
+.confirm__edit_save {
+  margin: auto;
+  margin: 10px;
+}
+.confirm__box {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.confirm__box label {
+  color: red;
+  width: 140px;
+}
+.phone,
+.name,
+.email,
+.confirm-edit__count {
+  padding: 5px 10px;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  background: border-box;
+  width: 90%;
+}
+.phone:focus,
+.name:focus,
+.email:focus,
+.confirm-edit__count:focus {
+  border-color: red;
+}
+.confirm-edit__count {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  appearance: textfield;
+}
+.confirm-edit__count::-webkit-outer-spin-button,
+.confirm-edit__count::-webkit-inner-spin-button {
+  display: none;
+}
+@media (max-width: 760px) {
+  .confirm__edit {
+    width: 100%;
+  }
+}
+@media (max-width: 570px) {
+  .confirm__edit_buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+  }
+  .confirm__edit_save.button {
+    margin: auto;
+  }
+}

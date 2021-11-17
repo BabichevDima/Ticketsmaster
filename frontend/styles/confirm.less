@@ -45,6 +45,7 @@
     }
     &_back,
     &_save {
+      margin: auto;
       margin: 10px;
     }
   }
@@ -87,4 +88,24 @@
 .confirm-edit__count::-webkit-outer-spin-button,
 .confirm-edit__count::-webkit-inner-spin-button {
   display: none;
+}
+
+@media (max-width: 760px) {
+  .confirm__edit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 570px) {
+  .confirm__edit_buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+  }
+  .confirm__edit_save.button {
+    margin: auto;
+  }
 }

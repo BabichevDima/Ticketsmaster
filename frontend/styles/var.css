@@ -3,17 +3,14 @@
   text-decoration: none;
   font-family: sans-serif !important;
 }
-
 body {
   min-width: 380px;
 }
-
 .page-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-
 .content-container {
   flex: 1;
   padding: 50px;
@@ -22,11 +19,10 @@ body {
   background-size: cover;
   position: relative;
 }
-
 .page-title {
   margin-bottom: 20px;
   text-align: center;
   font-weight: bold;
   font-size: 50px;
-  color:#fff;
+  color: #fff;
 }
