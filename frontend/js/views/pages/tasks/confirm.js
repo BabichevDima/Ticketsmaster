@@ -78,7 +78,7 @@ class Confirm extends Component {
                 <input class='phone' type="text" name="phone" id="phone" placeholder='Phone' autocomplete="off"/>
               </div>
 
-              <p class="confirm__edit_price">Цена $<span class='confirm-edit__price' data-count='${count}' data-price='${price}'>${price}</span></p>
+              <p class="confirm__edit_price">Цена $<span class="price" data-count='${count}' data-price='${price}'> ${price}</span></p>
               
 						  <div class="confirm__edit_buttons">
 							  <button class="confirm__edit_save button">Забронировать</button>
@@ -100,13 +100,18 @@ class Confirm extends Component {
   }
 
   isEditEnable() {
-    return Object.keys(this.concert).length && (this.concert).status !== 'Done';
+    let location =
+    this.concert.danceFloor.id === this.placeId
+      ? this.concert.danceFloor
+      : this.concert.tables.find((table) => table.id === this.placeId);
+
+    return Object.keys(location).length && (location).status !== 'Done';
   }
 
   setActions() {
     const buttonBy = document.getElementsByClassName('confirm__edit_save')[0],
       countTicket = document.getElementsByClassName('confirm-edit__count')[0],
-      priceTicket = document.getElementsByClassName('confirm-edit__price')[0],
+      priceTicket = document.getElementsByClassName('price')[0],
       userName = document.querySelector('.name'),
       userEmail = document.querySelector('.email'),
       userPhone = document.querySelector('.phone');
