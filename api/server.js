@@ -4,6 +4,7 @@ const express = require('express'),
   fs = require('file-system'),
   shortId = require('shortid'),
   dbFilePath = 'tasks.json',
+  adminPage = 'admin.json',
   app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,18 +22,17 @@ app.use((req, res, next) => {
 
 app.get('/api/concerts', (req, res) => res.send(getTasksFromDB()));
 
-app.post('/api/task', (req, res) => {
-  const tasksData = getTasksFromDB(),
-    task = req.body;
+app.post('/api/concerts', (req, res) => {
+  const concertsData = getTasksFromDB(),
+    concert = req.body;
 
-  task.id = shortId.generate();
-  task.description = task.description || 'No Description';
-  task.status = 'In Progress';
+  concert.id = shortId.generate();
+  concert.status = 'In Progress';
 
-  tasksData.push(task);
-  setTasksToDB(tasksData);
+  concertsData.push(concert);
+  setTasksToDB(concertsData);
 
-  res.send(task);
+  res.send(concert);
 });
 
 app.get('/api/concert/:id', (req, res) => {
@@ -104,8 +104,30 @@ app.post('/api/sendMail', (req) => {
   sendMail(body);
 });
 
+app.put('/api/admin', (req, res) => {
+  const admin = getAdminFromDB();
+
+  JSON.stringify(req.body) === JSON.stringify(admin)
+    ? (admin.access = 'open')
+    : admin;
+
+  setAdminToDB(admin);
+
+  res.sendStatus(204);
+});
+
+app.get('/api/admin', (req, res) => res.send(getAdminFromDB()));
+
 function getTasksFromDB() {
   return JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+}
+
+function getAdminFromDB() {
+  return JSON.parse(fs.readFileSync(adminPage, 'utf8'));
+}
+
+function setAdminToDB(admin) {
+  fs.writeFileSync(adminPage, JSON.stringify(admin));
 }
 
 function setTasksToDB(concerts) {

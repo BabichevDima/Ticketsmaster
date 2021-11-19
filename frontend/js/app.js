@@ -4,6 +4,8 @@ import Header from './views/partials/header.js';
 import Footer from './views/partials/footer.js';
 
 import About from './views/pages/about.js';
+import Admin from './views/pages/admin.js';
+import AdminPage from './views/pages/admin-page.js';
 import Error404 from './views/pages/error404.js';
 
 import AddAndList from './views/pages/tasks/add-list.js';
@@ -13,6 +15,8 @@ import Confirm from './views/pages/tasks/confirm.js';
 const Routes = {
     '/': About,
     '/concerts': AddAndList,
+    '/admin': Admin,
+    '/addedPage': AdminPage,
     '/concert/:id': ConcertInfo,
     '/concert/:id/:id/confirm': Confirm,
 };

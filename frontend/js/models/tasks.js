@@ -11,16 +11,16 @@ class Tasks {
     });
   }
 
-  addTask(newTask) {
+  addConcert(concert) {
     return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open('POST', 'http://localhost:3000/api/concert');
+      xhr.open('POST', 'http://localhost:3000/api/concerts');
       xhr.setRequestHeader('Content-Type', 'application/json');
 
       xhr.onload = () => resolve(JSON.parse(xhr.response));
 
-      xhr.send(JSON.stringify(newTask));
+      xhr.send(JSON.stringify(concert));
     });
   }
 
@@ -49,18 +49,18 @@ class Tasks {
     })
   }
 
-  editTask(updatedTask) {
-    return new Promise((resolve) => {
-      const xhr = new XMLHttpRequest();
+  // editTask(updatedTask) {
+  //   return new Promise((resolve) => {
+  //     const xhr = new XMLHttpRequest();
 
-      xhr.open('PUT', `http://localhost:3000/api/concert/${updatedTask.id}`);
-      xhr.setRequestHeader('Content-Type', 'application/json');
+  //     xhr.open('PUT', `http://localhost:3000/api/concert/${updatedTask.id}`);
+  //     xhr.setRequestHeader('Content-Type', 'application/json');
 
-      xhr.onload = () => resolve();
+  //     xhr.onload = () => resolve();
 
-      xhr.send(JSON.stringify(updatedTask));
-    });
-  }
+  //     xhr.send(JSON.stringify(updatedTask));
+  //   });
+  // }
 
   sendMail(body) {
     return new Promise((resolve) => {
@@ -73,6 +73,32 @@ class Tasks {
       xhr.onload = () => resolve();
 
       xhr.send(JSON.stringify(body));
+    });
+  }
+
+  checkAdmin(user){
+    return new Promise((resolve)=>{
+      const xhr = new XMLHttpRequest();
+
+      xhr.open('PUT', `http://localhost:3000/api/admin`);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      // xhr.onload = () => resolve(JSON.parse(xhr.response));
+      xhr.onload = () => resolve();
+
+      xhr.send(JSON.stringify(user));
+    })
+  }
+
+  getAdminPage() {
+    return new Promise((resolve) => {
+      const xhr = new XMLHttpRequest();
+
+      xhr.open('GET', 'http://localhost:3000/api/admin');
+
+      xhr.onload = () => resolve(JSON.parse(xhr.response));
+
+      xhr.send();
     });
   }
 
