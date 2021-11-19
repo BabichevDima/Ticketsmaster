@@ -1,7 +1,5 @@
 import Component from '../../views/component.js';
 
-import Error404 from './error404.js';
-
 import Tasks from '../../models/tasks.js';
 
 class AdminPage extends Component {
@@ -68,13 +66,15 @@ class AdminPage extends Component {
                   </div>
 
                   <div class="admin__box">
-                    <label for="tablePrice">Цена танцпола:</label>
+                    <label for="tablePrice">Цена столика:</label>
                     <input class='tablePrice' type="text" name="tablePrice" placeholder='Цена столика'/>
                   </div>
 
                 </form>
 
-                <button class='admin__button button'> Log in </button>
+                <button class='admin__button button'> Добавить концерт </button>
+
+                <button class='admin__button_logout button'> logout </button>
 
                 </div>
             `;
@@ -108,7 +108,8 @@ class AdminPage extends Component {
       danceFloorPrice = document.getElementsByClassName('danceFloorPrice')[0],
       tables = document.getElementsByClassName('tables')[0],
       tablePrice = document.getElementsByClassName('tablePrice')[0],
-      button = document.getElementsByClassName('admin__button')[0];
+      button = document.getElementsByClassName('admin__button')[0],
+      logout = document.getElementsByClassName('admin__button_logout')[0];
 
     button.addEventListener('click', () => {
       let concert = {
@@ -122,16 +123,38 @@ class AdminPage extends Component {
         tables: tables.value,
         tablePrice: tablePrice.value,
       };
-
-      console.log(concert);
       this.addConcert(concert);
+
+      this.clearAddConcert(
+        title,
+        data,
+        place,
+        description,
+        image,
+        danceFloorCount,
+        danceFloorPrice,
+        tables,
+        tablePrice
+      );
+    });
+
+    logout.addEventListener('click', () => {
+      this.model.changeAdmin().then(() => {
+        this.redirectToStartPage();
+      });
     });
   }
-  
+
   addConcert(concert) {
-    this.model.addConcert(concert).then((task) => {
-      this.redirectToStartPage()
-    });
+    this.model.addConcert(concert).then(() => {});
+  }
+
+  clearAddConcert(...arr) {
+    arr.forEach((item) => (item.value = ''));
+  }
+
+  redirectToStartPage() {
+    location.hash = `#/`;
   }
 }
 

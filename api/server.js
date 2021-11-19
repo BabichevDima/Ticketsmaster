@@ -23,13 +23,49 @@ app.use((req, res, next) => {
 app.get('/api/concerts', (req, res) => res.send(getTasksFromDB()));
 
 app.post('/api/concerts', (req, res) => {
-  const concertsData = getTasksFromDB(),
-    concert = req.body;
+  const concertsData = getTasksFromDB();
+  const concert = req.body;
+  const tables = [];
 
   concert.id = shortId.generate();
   concert.status = 'In Progress';
 
-  concertsData.push(concert);
+  console.log(concert.tables);
+
+  if (concert.tables) {
+    for (let i = 1; i <= concert.tables; i++) {
+      tables.push({
+        type: 'table',
+        number: i,
+        price: concert.tablePrice,
+        id: shortId.generate(),
+        status: 'In Progress',
+      });
+    }
+  }
+
+  concert.danceFloor = concert.danceFloorCount
+    ? {
+        type: 'dance',
+        count: concert.danceFloorCount,
+        price: concert.danceFloorPrice,
+        id: shortId.generate(),
+        status: 'In Progress',
+      }
+    : {
+        type: 'dance',
+        count: null,
+        price: null,
+        id: null,
+        status: 'Done',
+      };
+
+  concert.tables = tables;
+  delete concert.tablePrice;
+  delete concert.danceFloorCount,
+    delete concert.danceFloorPrice,
+    concertsData.push(concert);
+
   setTasksToDB(concertsData);
 
   res.send(concert);
@@ -111,6 +147,16 @@ app.put('/api/admin', (req, res) => {
     ? (admin.access = 'open')
     : admin;
 
+  setAdminToDB(admin);
+
+  res.sendStatus(204);
+});
+
+app.put('/api/admin/logout', (req, res) => {
+  const admin = getAdminFromDB();
+
+  delete admin.access
+  
   setAdminToDB(admin);
 
   res.sendStatus(204);

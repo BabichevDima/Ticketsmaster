@@ -34,8 +34,6 @@ class Admin extends Component {
 
                 <button class='admin__button button'> Log in </button>
 
-                <div class="error"></div>
-
                 </div>
             `);
     });
@@ -50,10 +48,8 @@ class Admin extends Component {
     const login = document.getElementsByClassName('login')[0];
     const password = document.getElementsByClassName('password')[0];
     const button = document.getElementsByClassName('admin__button')[0];
-    const errorMessage = document.getElementsByClassName('error')[0];
 
     button.addEventListener('click', () => {
-      // event.preventDefault();
       let user = {
         login: login.value,
         password: password.value,
@@ -61,7 +57,6 @@ class Admin extends Component {
 
       this.model.checkAdmin(user).then(() => {
 
-        // console.log(obj)
         this.redirectToAddedConcert();
       });
       // .catch(alert('Неверно ввелли логин или пароль.'));
