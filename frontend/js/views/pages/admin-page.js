@@ -23,6 +23,8 @@ class AdminPage extends Component {
         html = `
                 <div class="admin container"> 
 
+                <div class="admin__title">Добавить новый концерт</div>
+
                 <form class="admin__form">
 
                   <div class="admin__box">
@@ -72,9 +74,21 @@ class AdminPage extends Component {
 
                 </form>
 
-                <button class='admin__button button'> Добавить концерт </button>
+                <button class='admin__button_add button'> Добавить концерт </button>
 
-                <button class='admin__button_logout button'> logout </button>
+                <div class="admin__title">Удалить концерт</div>
+
+                <form class="admin__form_remove">
+                  <div class="admin__box">
+                    <label for="id">Id:</label>
+                    <input class='concert_id' type="text" name="id" placeholder='Id концерта'/>
+                  </div>
+                </form>
+                <button class='admin__button_remove button'> Удалить концерт </button>
+
+                <div class="admin__title">Не забудь нажать на кнопку ниже!</div>
+
+                <button class='admin__button_logout button'> log out </button>
 
                 </div>
             `;
@@ -108,8 +122,10 @@ class AdminPage extends Component {
       danceFloorPrice = document.getElementsByClassName('danceFloorPrice')[0],
       tables = document.getElementsByClassName('tables')[0],
       tablePrice = document.getElementsByClassName('tablePrice')[0],
-      button = document.getElementsByClassName('admin__button')[0],
-      logout = document.getElementsByClassName('admin__button_logout')[0];
+      button = document.getElementsByClassName('admin__button_add')[0],
+      logout = document.getElementsByClassName('admin__button_logout')[0],
+      idConcert = document.getElementsByClassName('concert_id')[0],
+      buttonRemove = document.getElementsByClassName('admin__button_remove')[0];
 
     button.addEventListener('click', () => {
       let concert = {
@@ -136,6 +152,13 @@ class AdminPage extends Component {
         tables,
         tablePrice
       );
+    });
+
+    buttonRemove.addEventListener('click', () => {
+      if (confirm('Are you sure?')) {
+        this.model.removeConcert(idConcert.value).then(() => {});
+        this.clearAddConcert(idConcert);
+      }
     });
 
     logout.addEventListener('click', () => {

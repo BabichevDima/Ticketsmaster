@@ -100,6 +100,19 @@ class Tasks {
     });
   }
 
+  removeConcert(id) {
+    return new Promise((resolve) => {
+      const xhr = new XMLHttpRequest();
+
+      xhr.open('DELETE', `http://localhost:3000/api/concert/${id}`);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      xhr.onload = () => resolve();
+
+      xhr.send();
+    });
+  }
+
 }
 
 export default Tasks;

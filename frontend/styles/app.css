@@ -853,6 +853,66 @@ body {
 .price {
   color: green;
 }
+.admin {
+  color: #fff;
+}
+.admin__box {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.admin__box label {
+  width: 140px;
+}
+.admin__form {
+  margin-bottom: 25px;
+}
+.login,
+.password {
+  padding: 5px 10px;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  background: border-box;
+}
+.login:focus,
+.password:focus {
+  border-color: red;
+}
+.admin {
+  color: #fff;
+}
+.admin__box {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.admin__box label {
+  width: 140px;
+}
+.admin__form {
+  margin-bottom: 25px;
+}
+.login,
+.password {
+  padding: 5px 10px;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  background: border-box;
+}
+.login:focus,
+.password:focus {
+  border-color: red;
+}
 .footer-container {
   display: flex;
   justify-content: center;

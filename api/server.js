@@ -124,13 +124,10 @@ app.put('/api/concert/:id/confirm', (req, res) => {
 });
 
 app.delete('/api/concert/:id', (req, res) => {
-  const tasksData = getTasksFromDB();
-  tasks =
-    req.params.id === 'all'
-      ? []
-      : tasksData.filter((task) => task.id !== req.params.id);
+  const concerts = getTasksFromDB();
+  updatedConcerts = concerts.filter((concert) => concert.id !== req.params.id);
 
-  setTasksToDB(tasks);
+  setTasksToDB(updatedConcerts);
 
   res.sendStatus(204);
 });

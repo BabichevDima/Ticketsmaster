@@ -11,6 +11,9 @@
 .admin__box label {
   width: 140px;
 }
+.admin__form {
+  margin-bottom: 25px;
+}
 .login,
 .password {
   padding: 5px 10px;
