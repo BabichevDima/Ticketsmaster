@@ -111,7 +111,7 @@ class ConcertInfo extends Component {
       const button = document.getElementsByClassName('button')[0];
 
       if (event.target.classList.contains('button')) {
-        this.redirectToTaskInfo(button.dataset.id);
+        this.redirectToConcertInfo(button.dataset.id);
       }
     });
   }
@@ -143,7 +143,7 @@ class ConcertInfo extends Component {
     }
   }
 
-  redirectToTaskInfo(id) {
+  redirectToConcertInfo(id) {
     location.hash = `#/concert/${this.concert.id}/${id}/confirm`;
   }
 }

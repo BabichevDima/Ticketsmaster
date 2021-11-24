@@ -1,7 +1,7 @@
-import Component from '../../views/component.js';
+import Component from '../../../views/component.js';
 
-import Concerts from '../../models/concerts.js';
-import ModelAdmin from '../../models/model-admin.js';
+import Concerts from '../../../models/concerts.js';
+import ModelAdmin from '../../../models/model-admin.js';
 
 class Admin extends Component {
   constructor() {
@@ -18,25 +18,21 @@ class Admin extends Component {
   render() {
     return new Promise(resolve => {
       resolve(`
-                <div class="admin container"> 
-
+              <div class="admin container">
                 <form class="admin__form">
-
                   <div class="admin__box">
                     <label for="login">Login:</label>
-                    <input class='login' type="text" name="login" placeholder='Login' autocomplete="off"/>
+                    <input class="login" type="text" name="login" placeholder="Login" autocomplete="off"/>
                   </div>
 
                   <div class="admin__box">
                     <label for="password">Password:</label>
-                    <input class='password' type="password" name="password" placeholder='Password' autocomplete="off"/>
+                    <input class="password" type="password" name="password" placeholder="Password" autocomplete="off" />
                   </div>
-
                 </form>
 
-                <button class='admin__button button'> Log in </button>
-
-                </div>
+                <button class="admin__button button">Log in</button>
+              </div>
             `);
     });
   }
@@ -54,14 +50,12 @@ class Admin extends Component {
     button.addEventListener('click', () => {
       let user = {
         login: login.value,
-        password: password.value,
+        password: password.value
       };
 
       this.modelAdmin.checkAdmin(user).then(() => {
-
         this.redirectToAddedConcert();
       });
-      // .catch(alert('Неверно ввелли логин или пароль.'));
     });
   }
 

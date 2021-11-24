@@ -1,4 +1,4 @@
-import Component from '../../../views/component.js';
+import Component from '../../component.js';
 
 import Concerts from '../../../models/concerts.js';
 
@@ -44,7 +44,7 @@ class AddAndList extends Component {
 
       switch (true) {
         case targetClassList.contains('concert__avatar'):
-          this.redirectToTaskInfo(target.dataset.id);
+          this.redirectToConcertInfo(target.dataset.id);
           break;
       }
     });
@@ -52,28 +52,25 @@ class AddAndList extends Component {
 
   getConcertHTML(concert) {
     return `
-      <div class="concert">
+          <div class="concert">
+            <img class="concert__avatar" src="${concert.image}" alt="photo" data-id="${concert.id}"/>
 
-        <img class="concert__avatar" src="${concert.image}" alt="photo" data-id='${concert.id}'/>
+            <div class="concert__description">
+              <div class="concert__info">
+                <div>${concert.title}</div>
+                <div class="concert__title">
+                  <span>&#128197</span>
+                  ${concert.data}
+                </div>
+              </div>
 
-        <div class="concert__description">
-          <div class="concert__info">
-            <div>${concert.title}</div>
-            <div class="concert__title">
-            <span>&#128197</span>
-            ${concert.data}</div>
+              <div class="concert__text">${concert.description}</div>
+            </div>
           </div>
-          
-          <div class="concert__text">
-          ${concert.description}
-          </div>
-        </div>
-
-      </div>
     `;
   }
 
-  redirectToTaskInfo(id) {
+  redirectToConcertInfo(id) {
     location.hash = `#/concert/${id}`;
   }
 }

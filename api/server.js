@@ -39,7 +39,7 @@ app.post('/api/concerts', (req, res) => {
         number: i,
         price: concert.tablePrice,
         id: shortId.generate(),
-        status: 'In Progress',
+        status: 'In Progress'
       });
     }
   }
@@ -50,14 +50,14 @@ app.post('/api/concerts', (req, res) => {
         count: concert.danceFloorCount,
         price: concert.danceFloorPrice,
         id: shortId.generate(),
-        status: 'In Progress',
+        status: 'In Progress'
       }
     : {
         type: 'dance',
         count: null,
         price: null,
         id: null,
-        status: 'Done',
+        status: 'Done'
       };
 
   concert.tables = tables;
@@ -73,22 +73,9 @@ app.post('/api/concerts', (req, res) => {
 
 app.get('/api/concert/:id', (req, res) => {
   const concertsData = getConcertsFromDB(),
-    concert = concertsData.find(concert => concert.id === req.params.id);
+    concert = concertsData.find((concert) => concert.id === req.params.id);
 
   concert ? res.send(concert) : res.send({});
-});
-
-app.put('/api/concert/:id', (req, res) => {
-  const concertsData = getConcertsFromDB(),
-    concert = concertsData.find(concert => concert.id === req.params.id),
-    updatedTask = req.body;
-
-  concert.title = updatedTask.title;
-  concert.description = updatedTask.description || 'No Description';
-
-  setConcertsToDB(concertsData);
-
-  res.sendStatus(204);
 });
 
 app.put('/api/concert/:id/done', (req, res) => {
@@ -107,7 +94,7 @@ app.put('/api/concert/:id/confirm', (req, res) => {
   location =
     concert.danceFloor.id === req.params.id
       ? concert.danceFloor
-      : concert.tables.find(table => table.id === req.body.placeId);
+      : concert.tables.find((table) => table.id === req.body.placeId);
 
   if (location.type === 'dance') {
     location.count = `${location.count - req.body.count}`;
@@ -140,7 +127,7 @@ app.post('/api/sendMail', req => {
 app.put('/api/admin', (req, res) => {
   const admin = getAdminFromDB();
 
-  if(admin.login === req.body.login && admin.password === req.body.password){
+  if (admin.login === req.body.login && admin.password === req.body.password) {
     admin.access = 'open';
   }
 
@@ -153,7 +140,7 @@ app.put('/api/admin/logout', (req, res) => {
   const admin = getAdminFromDB();
 
   admin.access = 'close';
-  
+
   setAdminToDB(admin);
 
   res.sendStatus(204);
@@ -177,7 +164,7 @@ function setConcertsToDB(concerts) {
   fs.writeFileSync(dbFilePath, JSON.stringify(concerts));
 }
 
-const sendMail = body => {
+const sendMail = (body) => {
   const dotenv = require('dotenv').config();
   const nodemailer = require('nodemailer');
   const transporter = nodemailer.createTransport({
@@ -185,9 +172,10 @@ const sendMail = body => {
     secure: false,
     auth: {
       user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
-    },
+      pass: process.env.PASSWORD
+    }
   });
+  //  transporter.close();
   const mailOptions = {
     from: 'dzmitry.babichev@gmail.com',
     to: 'dzmitry.babichev@gmail.com',
@@ -199,10 +187,10 @@ const sendMail = body => {
     ${body.concert ? `Концерт: ${body.concert.title}` : ``} 
     ${body.ticket ? `Номер Вашего билета: №${body.ticket}` : ``}
     ${body.count ? `Количество билетов: ${body.count}` : ``}
-    `,
+    `
   };
 
   transporter.sendMail(mailOptions);
-}
+};
 
 app.listen(3000, () => console.log('Server has been started...'));

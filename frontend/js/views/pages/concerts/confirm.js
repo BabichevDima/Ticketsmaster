@@ -42,19 +42,14 @@ class Confirm extends Component {
 					
 					  <div class="confirm__edit">
 
-                <div class="confirm__edit_header">
-                    <p><span>&#9971</span>${place}</p>
-                    <p><span>&#128197</span>${data}</p>
-                </div>
+              <div class="confirm__edit_header">
+                <p><span>&#9971</span>${place}</p>
+                <p><span>&#128197</span>${data}</p>
+              </div>
 
 						  <p class="confirm__edit_title">${title}</p>
-
-
 						  <p class="confirm__edit_description">${description}</p>
-
-              <p class="confirm__edit_type">Ваше место: ${
-                type === 'dance' ? 'Танцпол' : `Столик №${number}`
-              }</p>
+              <p class="confirm__edit_type">Ваше место: ${type === 'dance' ? 'Танцпол' : `Столик №${number}`}</p>
 
               <div class="confirm__box">
                 <label for="count">Count ticket: </label>
@@ -153,13 +148,13 @@ class Confirm extends Component {
     };
 
     this.model.choosePlace(concertConfirm).then(() => {
-      this.redirectToTaskInfo();
+      this.redirectToConcertInfo();
     });
 
     this.model.sendMail(mailOptions);
   }
 
-  redirectToTaskInfo() {
+  redirectToConcertInfo() {
     location.hash = `#/concert/${this.concert.id}`;
   }
 }

@@ -1,7 +1,7 @@
-import Component from '../../views/component.js';
+import Component from '../../../views/component.js';
 
-import Concerts from '../../models/concerts.js';
-import ModelAdmin from '../../models/model-admin.js';
+import Concerts from '../../../models/concerts.js';
+import ModelAdmin from '../../../models/model-admin.js';
 
 class AdminPage extends Component {
   constructor() {

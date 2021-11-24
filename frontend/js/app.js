@@ -4,13 +4,14 @@ import Header from './views/partials/header.js';
 import Footer from './views/partials/footer.js';
 
 import About from './views/pages/about.js';
-import Admin from './views/pages/admin.js';
-import AdminPage from './views/pages/admin-page.js';
 import Error404 from './views/pages/error404.js';
 
-import AddAndList from './views/pages/tasks/add-list.js';
-import ConcertInfo from './views/pages/tasks/concert-info.js';
-import Confirm from './views/pages/tasks/confirm.js';
+import Admin from './views/pages/adminFolder/admin.js';
+import AdminPage from './views/pages/adminFolder/admin-page.js';
+
+import AddAndList from './views/pages/concerts/add-list.js';
+import ConcertInfo from './views/pages/concerts/concert-info.js';
+import Confirm from './views/pages/concerts/confirm.js';
 
 const Routes = {
     '/': About,

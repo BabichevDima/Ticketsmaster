@@ -19,54 +19,53 @@ class About extends Component {
   render(concerts) {
     return new Promise(resolve => {
       resolve(`
-    <div class="about container">
-      <p class="about__info">Welcome ticketmaster app!</p>
+              <div class="about container">
+                <p class="about__info">Welcome ticketmaster app!</p>
 
-      <div class="about__slider">
-        ${concerts .map((concert, index) => this.getConcertHTML(concert, index)
-        ) .join('\n ')}
-      </div>
+                <div class="about__slider">
+                  ${concerts .map((concert, index) => this.getConcertHTML(concert, index)).join('\n ')}
+                </div>
 
-      <div class="about__buttons">
-        <div class="about__buttons_prev">&#10094</div>
-        <div class="about__buttons_next">&#10095</div>
-      </div>
+                <div class="about__buttons">
+                  <div class="about__buttons_prev">&#10094</div>
+                  <div class="about__buttons_next">&#10095</div>
+                </div>
 
-      <div class="about__email">
-        <p class="about__logo">&#9993</p>
-        <div class="about__text">Получить консультацию</div>
-      </div>
+                <div class="about__email">
+                  <p class="about__logo">&#9993</p>
+                  <div class="about__text">Получить консультацию</div>
+                </div>
 
-      <div class="form-box">
-        <h2>
-          Для оформления заказа или консультации, пожалуйста, оставьте свои
-          контакты. Мы с вами свяжемся!
-        </h2>
-        <form>
-          <div class="user-box">
-            <input type="text" class="name" required="" />
-            <label>Name</label>
-          </div>
+                <div class="form-box">
+                  <h2>
+                    Для оформления заказа или консультации, пожалуйста, оставьте свои
+                    контакты. Мы с вами свяжемся!
+                  </h2>
+                  <form>
+                    <div class="user-box">
+                      <input type="text" class="name" required="" />
+                      <label>Name</label>
+                    </div>
 
-          <div class="user-box">
-            <input type="text" class="phone" required="" />
-            <label>Phone</label>
-          </div>
-          <div class="user-box">
-            <input type="text" class="email" required="" />
-            <label>Email</label>
-          </div>
+                    <div class="user-box">
+                      <input type="text" class="phone" required="" />
+                      <label>Phone</label>
+                    </div>
+                    <div class="user-box">
+                      <input type="text" class="email" required="" />
+                      <label>Email</label>
+                    </div>
 
-          <a class="button__sendMail" href="#">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Отправить
-          </a>
-        </form>
-      </div>
-    </div>
+                    <a class="button__sendMail" href="#">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      Отправить
+                    </a>
+                  </form>
+                </div>
+              </div>
             `);
     });
   }
@@ -133,7 +132,7 @@ class About extends Component {
       }
     });
 
-    userName.addEventListener('focus', function () {
+    userName.addEventListener('focus', () => {
       userName.style.borderColor = '#fff';
     });
 
@@ -147,7 +146,7 @@ class About extends Component {
       }
     });
 
-    userPhone.addEventListener('focus', function () {
+    userPhone.addEventListener('focus', () =>  {
       userPhone.style.borderColor = '#fff';
     });
 
@@ -158,7 +157,7 @@ class About extends Component {
       }
     });
 
-    userEmail.addEventListener('focus', function () {
+    userEmail.addEventListener('focus', () => {
       userEmail.style.borderColor = '#fff';
     });
 
@@ -172,13 +171,11 @@ class About extends Component {
 
   getConcertHTML(concert, index) {
     return `
-          <div class="slide ${!index ? 'slide__active' : ''}">
+            <div class="slide ${!index ? 'slide__active' : ''}">
               <div class="slide__title">${concert.title}</div>
-              <img class="slide__avatar" src="${concert.image}" alt="photo"/>
-              <a class="button slide__button" href="#/concert/${
-                concert.id
-              }">К концерту</a>
-          </div>
+              <img class="slide__avatar" src="${concert.image}" alt="photo" />
+              <a class="button slide__button" href="#/concert/${concert.id}">К концерту</a>
+            </div>
     `;
   }
 
