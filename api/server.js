@@ -3,7 +3,7 @@ const express = require('express'),
   morgan = require('morgan'),
   fs = require('file-system'),
   shortId = require('shortid'),
-  dbFilePath = 'tasks.json',
+  dbFilePath = 'concerts.json',
   adminPage = 'admin.json',
   app = express();
 
@@ -20,10 +20,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/concerts', (req, res) => res.send(getTasksFromDB()));
+app.get('/api/concerts', (req, res) => res.send(getConcertsFromDB()));
 
 app.post('/api/concerts', (req, res) => {
-  const concertsData = getTasksFromDB();
+  const concertsData = getConcertsFromDB();
   const concert = req.body;
   const tables = [];
 
@@ -66,48 +66,48 @@ app.post('/api/concerts', (req, res) => {
     delete concert.danceFloorPrice,
     concertsData.push(concert);
 
-  setTasksToDB(concertsData);
+  setConcertsToDB(concertsData);
 
   res.send(concert);
 });
 
 app.get('/api/concert/:id', (req, res) => {
-  const concertsData = getTasksFromDB(),
-    concert = concertsData.find((concert) => concert.id === req.params.id);
+  const concertsData = getConcertsFromDB(),
+    concert = concertsData.find(concert => concert.id === req.params.id);
 
   concert ? res.send(concert) : res.send({});
 });
 
 app.put('/api/concert/:id', (req, res) => {
-  const concertsData = getTasksFromDB(),
-    concert = concertsData.find((concert) => concert.id === req.params.id),
+  const concertsData = getConcertsFromDB(),
+    concert = concertsData.find(concert => concert.id === req.params.id),
     updatedTask = req.body;
 
   concert.title = updatedTask.title;
   concert.description = updatedTask.description || 'No Description';
 
-  setTasksToDB(concertsData);
+  setConcertsToDB(concertsData);
 
   res.sendStatus(204);
 });
 
 app.put('/api/concert/:id/done', (req, res) => {
-  const concertsData = getTasksFromDB(),
-    concert = concertsData.find((concert) => concert.id === req.params.id);
+  const concertsData = getConcertsFromDB(),
+    concert = concertsData.find(concert => concert.id === req.params.id);
   concert.status = 'Done';
 
-  setTasksToDB(concertsData);
+  setConcertsToDB(concertsData);
 
   res.sendStatus(204);
 });
 
 app.put('/api/concert/:id/confirm', (req, res) => {
-  const concerts = getTasksFromDB(),
-    concert = concerts.find((concert) => concert.id === req.body.concert.id);
+  const concerts = getConcertsFromDB(),
+    concert = concerts.find(concert => concert.id === req.body.concert.id);
   location =
     concert.danceFloor.id === req.params.id
       ? concert.danceFloor
-      : concert.tables.find((table) => table.id === req.body.placeId);
+      : concert.tables.find(table => table.id === req.body.placeId);
 
   if (location.type === 'dance') {
     location.count = `${location.count - req.body.count}`;
@@ -118,21 +118,21 @@ app.put('/api/concert/:id/confirm', (req, res) => {
     location.status = 'Done';
   }
 
-  setTasksToDB(concerts);
+  setConcertsToDB(concerts);
 
   res.sendStatus(204);
 });
 
 app.delete('/api/concert/:id', (req, res) => {
-  const concerts = getTasksFromDB();
-  updatedConcerts = concerts.filter((concert) => concert.id !== req.params.id);
+  const concerts = getConcertsFromDB();
+  updatedConcerts = concerts.filter(concert => concert.id !== req.params.id);
 
-  setTasksToDB(updatedConcerts);
+  setConcertsToDB(updatedConcerts);
 
   res.sendStatus(204);
 });
 
-app.post('/api/sendMail', (req) => {
+app.post('/api/sendMail', req => {
   const body = req.body;
   sendMail(body);
 });
@@ -140,9 +140,9 @@ app.post('/api/sendMail', (req) => {
 app.put('/api/admin', (req, res) => {
   const admin = getAdminFromDB();
 
-  JSON.stringify(req.body) === JSON.stringify(admin)
-    ? (admin.access = 'open')
-    : admin;
+  if(admin.login === req.body.login && admin.password === req.body.password){
+    admin.access = 'open';
+  }
 
   setAdminToDB(admin);
 
@@ -152,7 +152,7 @@ app.put('/api/admin', (req, res) => {
 app.put('/api/admin/logout', (req, res) => {
   const admin = getAdminFromDB();
 
-  delete admin.access
+  admin.access = 'close';
   
   setAdminToDB(admin);
 
@@ -161,7 +161,7 @@ app.put('/api/admin/logout', (req, res) => {
 
 app.get('/api/admin', (req, res) => res.send(getAdminFromDB()));
 
-function getTasksFromDB() {
+function getConcertsFromDB() {
   return JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
 }
 
@@ -173,15 +173,16 @@ function setAdminToDB(admin) {
   fs.writeFileSync(adminPage, JSON.stringify(admin));
 }
 
-function setTasksToDB(concerts) {
+function setConcertsToDB(concerts) {
   fs.writeFileSync(dbFilePath, JSON.stringify(concerts));
 }
 
-function sendMail(body) {
+const sendMail = body => {
   const dotenv = require('dotenv').config();
   const nodemailer = require('nodemailer');
   const transporter = nodemailer.createTransport({
     service: 'gmail',
+    secure: false,
     auth: {
       user: process.env.EMAIL,
       pass: process.env.PASSWORD,

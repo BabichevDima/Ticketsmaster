@@ -1,17 +1,17 @@
 import Component from '../../../views/component.js';
 
-import Tasks from '../../../models/tasks.js';
+import Concerts from '../../../models/concerts.js';
 
 class AddAndList extends Component {
   constructor() {
     super();
 
-    this.model = new Tasks();
+    this.model = new Concerts();
   }
 
   getData() {
     return new Promise((resolve) =>
-      this.model.getTasksList().then((concerts) => resolve(concerts))
+      this.model.getConcertsList().then((concerts) => resolve(concerts))
     );
   }
 
@@ -23,7 +23,7 @@ class AddAndList extends Component {
       
 			  	<div class="concerts">
 			  		<div class="concerts__list">
-			  			${concerts.map((concert) => this.getTaskHTML(concert)).join('\n ')}
+			  			${concerts.map((concert) => this.getConcertHTML(concert)).join('\n ')}
 			  		</div>
 			  	</div>
         </div>
@@ -50,7 +50,7 @@ class AddAndList extends Component {
     });
   }
 
-  getTaskHTML(concert) {
+  getConcertHTML(concert) {
     return `
       <div class="concert">
 

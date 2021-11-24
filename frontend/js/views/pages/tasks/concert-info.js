@@ -2,18 +2,18 @@ import Component from '../../component.js';
 
 import Error404 from '../error404.js';
 
-import Tasks from '../../../models/tasks.js';
+import Concerts from '../../../models/concerts.js';
 
 class ConcertInfo extends Component {
   constructor() {
     super();
 
-    this.model = new Tasks();
+    this.model = new Concerts();
   }
 
   getData() {
     return new Promise((resolve) =>
-      this.model.getTask(this.request.id).then((concert) => {
+      this.model.getConcert(this.request.id).then((concert) => {
         this.concert = concert;
 
         resolve(concert);
