@@ -175,7 +175,6 @@ const sendMail = (body) => {
       pass: process.env.PASSWORD
     }
   });
-  //  transporter.close();
   const mailOptions = {
     from: 'dzmitry.babichev@gmail.com',
     to: 'dzmitry.babichev@gmail.com',

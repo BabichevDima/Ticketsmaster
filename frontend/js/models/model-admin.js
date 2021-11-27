@@ -1,6 +1,6 @@
 class Admin {
   checkAdmin(user) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();
 
       xhr.open('PUT', `http://localhost:3000/api/admin`);
@@ -13,7 +13,7 @@ class Admin {
   }
 
   changeAdmin() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();
 
       xhr.open('PUT', `http://localhost:3000/api/admin/logout`);
@@ -26,12 +26,18 @@ class Admin {
   }
 
   getAdminPage() {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open('GET', 'http://localhost:3000/api/admin');
+      xhr.open('GET', 'http://localhost:3000/api/admin7');
 
-      xhr.onload = () => resolve(JSON.parse(xhr.response));
+      xhr.onload = () => {
+        try {
+          resolve(JSON.parse(xhr.response));
+        } catch {
+          alert(Error)
+        }
+      };
 
       xhr.send();
     });

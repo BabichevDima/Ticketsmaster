@@ -12,7 +12,7 @@ class AdminPage extends Component {
   }
 
   getData() {
-    return new Promise((resolve) =>
+    return new Promise(resolve =>
       this.modelAdmin.getAdminPage().then(user => resolve(user))
     );
   }
@@ -161,7 +161,7 @@ class AdminPage extends Component {
         danceFloorCount: danceFloorCount.value,
         danceFloorPrice: danceFloorPrice.value,
         tables: tables.value,
-        tablePrice: tablePrice.value,
+        tablePrice: tablePrice.value
       };
       this.addConcert(concert);
 
@@ -181,7 +181,7 @@ class AdminPage extends Component {
     buttonRemove.addEventListener('click', () => {
       if (confirm('Are you sure?')) {
         this.model.removeConcert(idConcert.value).then(() => {
-          alert('Concert has been delete.')
+          alert('Concert has been delete.');
         });
         this.clearAddConcert(idConcert);
       }
@@ -196,7 +196,7 @@ class AdminPage extends Component {
 
   addConcert(concert) {
     this.model.addConcert(concert).then(() => {
-      alert('Concert has been added.')
+      alert('Concert has been added.');
     });
   }
 
